@@ -3,8 +3,8 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const UserSchema = new Schema({
-  first_name: { type: String, required: true, maxLength: 100 },
-  last_name: { type: String, required: true, maxLength: 100 },
+  first_name: { type: String, required: false, maxLength: 100 },
+  last_name: { type: String, required: false, maxLength: 100 },
   username: { type: String, required: true, maxLength: 100 },
   password: { type: String, required: true, maxLength: 100 },
   status: {
@@ -13,7 +13,7 @@ const UserSchema = new Schema({
     enum: ["Not Member", "Member", "Admin"],
     default: "Not Member",
   },
-  messages: [{ type: Schema.Types.ObjectId, ref: "Message", required: true }],
+  messages: [{ type: Schema.Types.ObjectId, ref: "Message", required: false }],
 });
 
 UserSchema.virtual("name").get(function () {
