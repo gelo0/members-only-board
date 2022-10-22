@@ -2,7 +2,7 @@ extends layout
 
 block content
   h1 #{user.username}
-  if user.status == 'Member'
+  if user.status == 'Member' || user.status == 'Admin'
     form(action='/message/create' method='POST')
           label(for='title') Title 
           input(name='title' placeholder='Title' type='text')
