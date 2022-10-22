@@ -1,0 +1,12 @@
+extends layout
+
+block content
+  h1 #{user.username}
+  if user.status == 'Member'
+    form(action='/message/create' method='POST')
+          label(for='title') Title 
+          input(name='title' placeholder='Title' type='text')
+          label(for='text') Text
+          textarea(name="text", cols="30", rows="10")
+          button Send
+

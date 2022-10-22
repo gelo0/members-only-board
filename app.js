@@ -13,10 +13,12 @@ const bcrypt = require("bcryptjs");
 var indexRouter = require("./routes/index");
 var usersRouter = require("./routes/users");
 const signUpRouter = require("./routes/signUp");
+const messageRouter = require("./routes/messageRouter");
 
 var app = express();
 
 const mongoose = require("mongoose");
+const message = require("./models/message");
 const mongoDB = process.env.MONGO_DB_KEY;
 mongoose.connect(mongoDB, { useNewUrlParser: true, useUnifiedTopology: true });
 const db = mongoose.connection;
@@ -77,6 +79,7 @@ app.use(function (req, res, next) {
 app.use("/", indexRouter);
 app.use("/users", usersRouter);
 app.use("/sign-up", signUpRouter);
+app.use("/message", messageRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

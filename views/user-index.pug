@@ -1,0 +1,13 @@
+extends layout
+
+block content
+  h1= title
+  p 1 #{locals.currentUser.username}
+  ul
+    each user in users
+      li
+        a(href=user.url) #{user.username}
+
+    else
+      li There are no users.
+

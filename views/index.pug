@@ -3,6 +3,17 @@ extends layout
 block content
   if user
     h1 WELCOME BACK #{user.username}
+    p #{user.status}
+    if user.status === "Not Member"
+      p GET MEMBERSHIP
+      form(action='/get-membership' method='POST')
+        label(for="secretcode") SECRET CODE:
+        input(name="secretcode" type='password') 
+        button Get Membership
+    hr
+    p
+      if user && (user.status == 'Member' || user.status=='Admin')
+        a(href='/message/create') Create New Message
     a(href='/log-out') LOG OUT
   else 
     h1 please log in
@@ -12,3 +23,18 @@ block content
       label(for='password') Password
       input(name='password' type='password')
       button Log In
+
+    a(href='/sign-up') Sign Up
+
+  ul
+    each message in messages 
+      li
+        a(href=message.url) #{message.title} 
+        if user && (user.status == 'Member' || user.status=='Admin')
+          p (#{message.user.username})
+        p #{message.text}
+        if user && (user.status == 'Member' || user.status=='Admin')
+          p #{message.timestamp.toLocaleDateString("en-US", {hour:'numeric', minute:'numeric'})}
+        if user && user.status == 'Admin'
+          form(action=message.url + '/delete' method='POST')
+            button Delete
